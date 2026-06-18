@@ -1,0 +1,580 @@
+.hero-big {
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)),
+    url("images/hero.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  animation: zoomEffect 8s ease-in-out infinite alternate;
+}
+
+
+
+.hero-big h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 3px 3px 15px rgba(0,0,0,0.9);
+}
+
+.hero-big p {
+  color: #ddd;
+  font-size: 18px;
+}
+
+.hero-big h1 {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 3px 3px 15px rgba(0,0,0,0.9);
+}
+
+.hero-big p {
+  color: #ddd;
+  font-size: 18px;
+}
+
+.hero-big .btn {
+  transition: 0.3s;
+}
+
+.hero-big .btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.6);
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 20px;
+  font-size: 30px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+.hero-big {
+  backdrop-filter: blur(2px);
+}
+
+
+.navbar {
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 1000
+
+}
+
+/* ✅ BASIS */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #cbd5f5;
+  padding: 8px 16px;
+  border-radius: 12px;
+
+  transition: all 0.3s ease;
+}
+
+/* ✅ HOVER (dein Wunsch!) */
+.nav-link:hover {
+  background: rgba(59,130,246,0.2);
+  color: white;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* ✅ ACTIVE (wie Home im Bild) */
+.nav-link.active {
+  background: #1d4ed8;
+  color: white;
+
+  box-shadow: 0 6px 18px rgba(29,78,216,0.5);
+}
+
+/* ✅ Icons schöner */
+.nav-link i {
+  font-size: 16px;
+}
+
+.navbar {
+  background: #0f172a;
+}
+
+/* ✅ BASIS */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #cbd5f5;
+  padding: 8px 16px;
+  border-radius: 12px;
+
+  transition: all 0.3s ease;
+}
+
+/* ✅ HOVER (dein Wunsch!) */
+.nav-link:hover {
+  background: rgba(59,130,246,0.2);
+  color: white;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* ✅ ACTIVE (wie Home im Bild) */
+.nav-link.active {
+  background: #e8531c;
+  color: white;
+
+  box-shadow: 0 6px 18px rgba(29,78,216,0.5);
+}
+
+/* ✅ Icons schöner */
+.nav-link i {
+  font-size: 16px;
+}
+
+
+/* ✅ CARD */
+.category-card-new {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+  height: 100%;
+
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ✅ HOVER */
+.category-card-new:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* ✅ ICON BOX */
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+
+  background: rgba(59,130,246,0.2);
+  color: #60a5fa;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;
+
+  margin-bottom: 20px;
+}
+
+/* ✅ TEXT */
+.category-card-new h5 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.category-card-new p {
+  color: #94a3b8;
+}
+
+.category-card-new:hover .icon-wrapper {
+  transform: scale(1.1);
+}
+.category-card-new:hover h5 {
+  color: #60a5fa;
+}
+
+/* ✅ ÜBERSCHRIFT */
+.section-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #e5e7eb;
+  margin-bottom: 10px;
+}
+
+/* ✅ UNTERTITEL */
+.section-subtitle {
+  font-size: 18px;
+  color: #94a3b8;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+/* ✅ CARD */
+.feature-card {
+  background: #1e293b;
+  padding: 35px;
+  border-radius: 20px;
+  
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  transition: all 0.3s ease;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ HOVER */
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.feature-card:hover .icon-box {
+  transform: scale(1.1);
+}
+
+
+/* ✅ ICON BOX */
+.icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;
+
+  margin-bottom: 20px;
+}
+
+/* ✅ COLORS */
+.icon-box.green {
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+}
+
+.icon-box.yellow {
+  background: rgba(250,204,21,0.2);
+  color: #facc15;
+}
+
+.icon-box.blue {
+  background: rgba(59,130,246,0.2);
+  color: #3b82f6;
+}
+
+/* ✅ TEXT */
+.feature-card h5 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.feature-card:hover h5 {
+  color: #60a5fa;
+}
+
+.feature-card p {
+  color: #94a3b8;
+  flex-grow: 1;
+}
+
+/* ✅ KATEGORIEN */
+.section-dark {
+  background: #0f172a;
+  padding: 80px 0;
+}
+
+/* ✅ WARUM */
+.section-darker {
+  background: #020617;
+  padding: 80px 0;
+}
+
+/* ✅ bereit zu starten? */
+.section-dark-blue {
+  background: #071c39;
+  padding: 80px 0;
+}
+
+
+/* ✅ Titel */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+}
+
+/* ✅ Untertitel */
+.section-subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+
+/* ✅ Link rechts */
+.see-all {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+/* ✅ Hover Effekt */
+.see-all:hover {
+  color: white;
+}
+
+/* ✅ FOOTER */
+.footer {
+  background: #0f172a;
+  padding: 60px 0;
+  h5 {
+    color: #e8531c;
+   
+  }
+}
+
+/* register page */
+#registerPage .container {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+#registerPage input {
+  background: #0f172a;
+  border: none;
+  color: white;
+}
+
+/* ✅ Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* ✅ Card */
+.auth-card {
+  background: #0f172a;
+  padding: 40px;
+  border-radius: 20px;
+  width: 400px;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* ✅ Logo */
+.auth-logo {
+  width: 40px;
+}
+
+/* ✅ Inputs */
+.input-group-text {
+  background: #1e293b;
+  border: none;
+  color: #94a3b8;
+}
+
+.form-control {
+  background: #1e293b;
+  border: none;
+  color: white;
+}
+
+.form-control::placeholder {
+  color: #64748b;
+}
+
+.btn-primary {
+  border-radius: 12px;
+}
+
+
+/* ✅ Button */
+.btn-primary {
+  background: #e8531c;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* ✅ Links */
+.auth-card a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.user-box {
+  background: #1e293b;
+  padding: 8px 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.empty-box a {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+
+.user-box button {
+  background: transparent;
+  border: none;
+  color: #60a5fa;
+}
+
+/* ✅ Stat Box */
+.stat-box {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #334155;
+}
+
+/* ✅ Stat Icons */
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.stat-icon.blue  { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.stat-icon.yellow{ background: rgba(234,179,8,0.15);  color: #eab308; }
+.stat-icon.green { background: rgba(34,197,94,0.15);  color: #22c55e; }
+
+/* ✅ Empty Box */
+.empty-box {
+  background: #1e293b;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  padding: 40px;
+}
+
+/* ✅ Request Card */
+.request-card {
+  background: #1e293b;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+
+.request-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.request-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.request-img-placeholder {
+  width: 100%;
+  height: 160px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #334155;
+}
+
+.request-body {
+  padding: 16px;
+}
+
+.request-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.request-desc {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  overflow: hidden;
+  max-height: 42px;
+}
+
+.request-location,
+.request-date {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+/* ✅ Badges */
+.badge-category {
+  background: rgba(59,130,246,0.2);
+  color: #60a5fa;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-status {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-offen     { background: rgba(234,179,8,0.2);  color: #eab308; }
+.status-progress  { background: rgba(59,130,246,0.2); color: #3b82f6; }
+.status-done      { background: rgba(34,197,94,0.2);  color: #22c55e; }
+
+/* ✅ Sterne */
+.star-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  font-size: 20px;
+  color: #334155;
+  cursor: pointer;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.star:hover,
+.star-filled {
+  color: #facc15;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.star-label {
+  font-size: 12px;
+  color: #64748b;
+  margin-left: 6px;
+}

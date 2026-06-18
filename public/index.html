@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FixIt Service</title>
+  <meta charset="UTF-8">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark text-white">
+
+<!-- ✅ NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+
+  <a class="navbar-brand d-flex align-items-center" href="/">
+    <img src="images/logo.png" style="width: 180px;">
+    
+  </a>
+
+  <ul class="navbar-nav mx-auto">
+    <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house"></i> Startseite</a></li>
+    <li class="nav-item"><a class="nav-link" href="/dashboard"><i class="bi bi-search"></i>Suchen</a></li>
+    <li class="nav-item"><a class="nav-link" href="/create-request"><i class="bi bi-plus-circle"></i> Anfrage</a></li>
+    <li class="nav-item"><a class="nav-link" href="/kontakt"><i class="bi bi-chat-left"></i> Kontakt</a></li>
+  </ul>
+
+  <div id="authButtons"></div>
+
+</nav>
+
+<!-- ✅ HOME PAGE -->
+<div id="homePage" style="display:none;">
+
+  <!-- HERO -->
+  <div class="hero-big text-center">
+
+    <span class="badge bg-primary mb-3">
+      ⭐ Über 1000+ zufriedene Kunden
+    </span>
+
+    <h1>
+      Finden Sie den perfekten<br>
+      <span class="text-primary">Reparatur</span>-Service
+    </h1>
+
+    <p class="mt-3">
+      Erstellen Sie Reparaturanfragen, finden Sie qualifizierte Dienstleister.
+    </p>
+
+    <div class="mt-4">
+      <a href="/create-request" class="btn btn-primary px-4 py-2 me-2">
+        Anfrage erstellen →
+      </a>
+
+      <a href="/dashboard" class="btn btn-outline-light px-4 py-2">
+        🔍 Anfragen durchsuchen
+      </a>
+    </div>
+    <div class="scroll-down">
+        ↓
+    </div>
+
+  </div>
+
+  <!-- ✅ KATEGORIEN -->
+   <section class="section-dark">
+     <div class="container text-center mt-5">
+
+      <h2 class="section-title">Kategorien</h2>
+
+      <p class="section-subtitle">
+        Wählen Sie aus verschiedenen Reparatur-Kategorien
+      </p>
+
+      <div class="row mt-5 g-4">
+
+        <!-- Geräte -->
+        <div class="col-md-3">
+          <div class="category-card-new">
+
+            <div class="icon-wrapper">
+              <i class="bi bi-wrench"></i>
+            </div>
+
+            <h5>Geräte</h5>
+            <p>Elektronik und Haushaltsgeräte</p>
+
+          </div>
+        </div>
+
+        <!-- Haushalt -->
+        <div class="col-md-3">
+        <div class="category-card-new">
+
+            <div class="icon-wrapper">
+            <i class="bi bi-house"></i>
+            </div>
+
+            <h5>Haushalt</h5>
+            <p>Haushaltsreparaturen</p>
+
+            </div>
+        </div>
+
+        <!-- Kamera -->
+        <div class="col-md-3">
+        <div class="category-card-new">
+
+            <div class="icon-wrapper">
+            <i class="bi bi-camera"></i>
+            </div>
+
+            <h5>Kamera</h5>
+            <p>Kameras und Fotografie</p>
+
+        </div>
+        </div>
+
+        <!-- Handy -->
+        <div class="col-md-3">
+        <div class="category-card-new">
+
+            <div class="icon-wrapper">
+            <i class="bi bi-phone"></i>
+            </div>
+
+            <h5>Handy</h5>
+            <p>Smartphones und Tablets</p>
+
+        </div>
+        </div>
+
+  </div>
+
+
+</section>
+
+  <!-- ✅ WARUM FixIt Service? -->
+   <section class="section-darker">
+   <div class="container mt-5 text-center">
+
+  <h2 class="section-title">Warum FixIt Service?</h2>
+
+  <div class="row mt-5 g-4">
+
+    <!-- ✅ 1 -->
+    <div class="col-md-4">
+      <div class="feature-card">
+
+        <div class="icon-box green">
+          <i class="bi bi-check"></i>
+        </div>
+
+        <h5>Verifizierte Anbieter</h5>
+        <p>Alle Dienstleister werden sorgfältig geprüft.</p>
+
+      </div>
+    </div>
+
+    <!-- ✅ 2 -->
+    <div class="col-md-4">
+      <div class="feature-card">
+
+        <div class="icon-box yellow">
+          <i class="bi bi-star"></i>
+        </div>
+
+        <h5>Bewertungssystem</h5>
+        <p>Transparente Bewertungen helfen bei der Auswahl.</p>
+
+      </div>
+    </div>
+
+    <!-- ✅ 3 -->
+    <div class="col-md-4">
+      <div class="feature-card">
+
+        <div class="icon-box blue">
+          <i class="bi bi-shield"></i>
+        </div>
+
+        <h5>Sichere Plattform</h5>
+        <p>Ihre Daten sind sicher und geschützt.</p>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+<!-- ✅ AKTUELLE ANFRAGEN -->
+<section class="section-dark">
+
+  <div class="container">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+      <div>
+        <h2 class="section-title">Aktuelle Anfragen</h2>
+        <p class="section-subtitle">
+          Neue Reparaturanfragen aus unserer Community
+        </p>
+      </div>
+
+      <!-- ✅ WICHTIG -->
+      <a href="/dashboard" class="see-all">
+        Alle ansehen <i class="bi bi-arrow-right"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Bereit zu starten? -->
+<section class="section-dark-blue text-center">
+
+  <h2>Bereit zu starten?</h2>
+  <p>Erstellen Sie jetzt Ihre erste Reparaturanfrage.</p>
+
+  <a href="/register" class="btn btn-primary">
+    Jetzt registrieren →
+  </a>
+
+</section>
+</div>
+
+
+<!-- ✅ KONTAKT PAGE -->
+<div id="kontaktPage" style="display:none;">
+
+  <div class="page-header text-center">
+    <h1>Kontakt</h1>
+    <p>Kontaktieren Sie uns</p>
+  </div>
+
+  <div class="container mt-5">
+    <p>Hier kommt dein Kontaktformular…</p>
+  </div>
+
+</div>
+
+<!-- ✅ DASHBOARD PAGE -->
+<div id="dashboardPage" style="display:none;">
+
+  <div class="container mt-5">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <h1 class="fw-bold">Dashboard</h1>
+        <p id="welcomeText" class="text-secondary mb-0"></p>
+      </div>
+      <a href="/create-request" class="btn btn-primary px-4">
+        <i class="bi bi-plus-circle me-2"></i>Neue Anfrage
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-4 mt-3">
+
+      <div class="col-md-3">
+        <div class="stat-box">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="stat-icon blue"><i class="bi bi-graph-up"></i></div>
+            <span class="text-secondary">Gesamt</span>
+          </div>
+          <h2 class="fw-bold">0</h2>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-box">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="stat-icon yellow"><i class="bi bi-clock"></i></div>
+            <span class="text-secondary">Offen</span>
+          </div>
+          <h2 class="fw-bold">0</h2>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-box">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="stat-icon blue"><i class="bi bi-info-circle"></i></div>
+            <span class="text-secondary">In Bearbeitung</span>
+          </div>
+          <h2 class="fw-bold">0</h2>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="stat-box">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+            <span class="text-secondary">Abgeschlossen</span>
+          </div>
+          <h2 class="fw-bold">0</h2>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tabs -->
+    <div class="mt-5 d-flex gap-2">
+      <button class="btn btn-primary" id="tabAnfragen" onclick="switchTab('anfragen')">
+        Meine Anfragen
+      </button>
+      <button class="btn btn-secondary" id="tabBewertungen" onclick="switchTab('bewertungen')">
+        Meine Bewertungen
+      </button>
+    </div>
+
+    <!-- Anfragen Liste -->
+    <div id="tabAnfragenContent" class="mt-3">
+      <div id="list" class="row"></div>
+
+      <!-- Leer-Zustand -->
+      <div id="emptyBox" class="empty-box mt-2 text-center py-5">
+        <i class="bi bi-chat fs-1 text-secondary"></i>
+        <h5 class="mt-3 fw-bold">Keine Anfragen</h5>
+        <a href="/create-request" class="btn btn-primary mt-3">
+          <i class="bi bi-plus-circle me-2"></i>Anfrage erstellen
+        </a>
+      </div>
+    </div>
+
+    <!-- Bewertungen Liste -->
+    <div id="tabBewertungenContent" class="mt-3" style="display:none;">
+      <div class="empty-box text-center py-5">
+        <i class="bi bi-star fs-1 text-secondary"></i>
+        <h5 class="mt-3 fw-bold">Keine Bewertungen</h5>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ✅ REGISTER PAGE -->
+<div id="registerPage" style="display:none;">
+
+  <div class="auth-container">
+
+    <div class="auth-card">
+
+      <!-- ✅ Logo + Titel -->
+      <div class="text-center mb-4">
+        <img src="images/logo.png" class="auth-logo">
+        <h3 class="mt-3">Konto erstellen</h3>
+      </div>
+
+      <form id="registerForm">
+
+        <!-- Name -->
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" id="firstname" class="form-control" placeholder="Max Mustermann">
+        </div>
+
+        <!-- Email -->
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <input type="email" id="email" class="form-control" placeholder="ihre@email.de">
+        </div>
+
+        <!-- Passwort -->
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="bi bi-eye"></i></span>
+          <input type="password" id="password" class="form-control" placeholder="********">
+        </div>
+
+        <!-- Passwort wiederholen -->
+        <div class="input-group mb-4">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <input type="password" id="password2" class="form-control" placeholder="********">
+        </div>
+
+        <!-- Button -->
+        <button class="btn btn-primary w-100">Registrieren</button>
+
+      </form>
+
+      <!-- Login Hinweis -->
+      <p class="text-center mt-3">
+        Bereits ein Konto? 
+        <a href="/login">Jetzt anmelden</a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ✅ SCRIPT -->
+<script>
+
+function logout() {
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  window.location.href = "/";
+}
+
+function showPage(page) {
+  const pages = ["homePage", "kontaktPage", "dashboardPage", "registerPage"];
+  pages.forEach(id => {
+    document.getElementById(id).style.display = "none";
+  });
+  document.getElementById(page).style.display = "block";
+  window.scrollTo(0, 0);
+}
+
+function switchTab(tab) {
+  const anfragen    = document.getElementById("tabAnfragenContent");
+  const bewertungen = document.getElementById("tabBewertungenContent");
+  const btnA        = document.getElementById("tabAnfragen");
+  const btnB        = document.getElementById("tabBewertungen");
+
+  if (tab === "anfragen") {
+    anfragen.style.display    = "block";
+    bewertungen.style.display = "none";
+    btnA.className = "btn btn-primary";
+    btnB.className = "btn btn-secondary";
+  } else {
+    anfragen.style.display    = "none";
+    bewertungen.style.display = "block";
+    btnA.className = "btn btn-secondary";
+    btnB.className = "btn btn-primary";
+    loadBewertungen(); 
+  }
+}
+
+async function loadBewertungen() {
+  const user = localStorage.getItem("userName");
+  const res = await fetch("/api/requests?user=" + user);
+  const data = await res.json();
+
+  // Nur Anfragen mit Bewertung
+  const bewertet = data.filter(r => r.stars && r.stars > 0);
+
+  const container = document.getElementById("tabBewertungenContent");
+
+  if (bewertet.length === 0) {
+    container.innerHTML = `
+      <div class="empty-box text-center py-5">
+        <i class="bi bi-star fs-1 text-secondary"></i>
+        <h5 class="mt-3 fw-bold">Keine Bewertungen</h5>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `<div class="row">` + bewertet.map(r => `
+    <div class="col-md-4 mb-4">
+      <div class="request-card">
+
+        ${r.image ? `
+          <img src="/images/uploads/${r.image}" class="request-img">
+        ` : `
+          <div class="request-img-placeholder">
+            <i class="bi bi-image"></i>
+          </div>
+        `}
+
+        <div class="request-body">
+          <span class="badge-category">${r.category}</span>
+          <h5 class="request-title mt-2">${r.title}</h5>
+          <p class="request-desc">${r.description}</p>
+
+          <!-- Sterne anzeigen -->
+          <div class="star-row mt-2">
+            ${[1,2,3,4,5].map(i => `
+              <span class="star ${i <= r.stars ? 'star-filled' : ''}">★</span>
+            `).join("")}
+            <span class="star-label">${r.stars}/5 Sterne</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  `).join("") + `</div>`;
+}
+
+async function loadRequests() {
+  const user = localStorage.getItem("userName");
+  const res = await fetch("/api/requests?user=" + user);
+  const data = await res.json();
+  display(data);
+}
+
+function display(data) {
+  const list = document.getElementById("list");
+  const emptyBox = document.getElementById("emptyBox");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  // Stats updaten
+  document.querySelectorAll(".stat-box h2")[0].innerText = data.length;
+  document.querySelectorAll(".stat-box h2")[1].innerText = data.filter(r => r.status === "offen").length;
+  document.querySelectorAll(".stat-box h2")[2].innerText = data.filter(r => r.status === "in Bearbeitung").length;
+  document.querySelectorAll(".stat-box h2")[3].innerText = data.filter(r => r.status === "abgeschlossen").length;
+
+  if (data.length === 0) {
+    if (emptyBox) emptyBox.style.display = "block";
+    return;
+  }
+
+  if (emptyBox) emptyBox.style.display = "none";
+
+  data.forEach(r => {
+    const stars = r.stars || 0;
+
+    list.innerHTML += `
+      <div class="col-md-4 mb-4">
+        <div class="request-card">
+
+          ${r.image ? `
+            <img src="/images/uploads/${r.image}" class="request-img">
+          ` : `
+            <div class="request-img-placeholder">
+              <i class="bi bi-image"></i>
+            </div>
+          `}
+
+          <div class="request-body">
+
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge-category">${r.category}</span>
+              <span class="badge-status ${r.status === 'offen' ? 'status-offen' : r.status === 'abgeschlossen' ? 'status-done' : 'status-progress'}">
+                ${r.status}
+              </span>
+            </div>
+
+            <h5 class="request-title">${r.title}</h5>
+            <p class="request-desc">${r.description}</p>
+
+            ${r.location ? `
+              <p class="request-location">
+                <i class="bi bi-geo-alt me-1"></i>${r.location}
+              </p>
+            ` : ""}
+
+            <p class="request-date">
+              <i class="bi bi-calendar me-1"></i>${r.date}
+            </p>
+
+            <!-- Bewertung -->
+            <div class="star-row mt-2">
+              ${[1,2,3,4,5].map(i => `
+                <span class="star ${i <= stars ? 'star-filled' : ''}" onclick="rate(${r.id}, ${i})">★</span>
+              `).join("")}
+              <span class="star-label">${stars > 0 ? stars + "/5" : "Noch nicht bewertet"}</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+async function rate(id, stars) {
+  await fetch("/api/rate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ requestId: id, stars: stars })
+  });
+  alert("⭐ Bewertung gespeichert!");
+}
+
+/* ✅ ALLES was DOM braucht → hier rein */
+document.addEventListener("DOMContentLoaded", () => {
+
+  const path = window.location.pathname;
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+
+  // Schutz
+  if (path === "/dashboard" && !isLoggedIn) {
+    window.location.href = "/login";
+    return;
+  }
+
+  // Routing
+  if (path === "/kontakt") {
+    showPage("kontaktPage");
+  } else if (path === "/dashboard") {
+    showPage("dashboardPage");
+    const name = localStorage.getItem("userName");
+    const welcome = document.getElementById("welcomeText");
+    if (welcome) welcome.innerText = "Willkommen zurück, " + name;
+    loadRequests();
+  } else if (path === "/register") {
+    showPage("registerPage");
+  } else {
+    showPage("homePage");
+  }
+
+  // Navbar
+  const authDiv = document.getElementById("authButtons");
+  const userName = localStorage.getItem("userName");
+
+  if (isLoggedIn) {
+    authDiv.innerHTML = `
+      <div class="user-box">
+        👤 ${userName}
+        <button onclick="logout()">Abmelden</button>
+      </div>
+    `;
+  } else {
+    authDiv.innerHTML = `
+      <button class="btn btn-outline-primary" onclick="window.location.href='/login'">Anmelden</button>
+      <button class="btn btn-primary" onclick="window.location.href='/register'">Registrieren</button>
+    `;
+  }
+
+  // Aktiver Nav-Link
+  document.querySelectorAll(".nav-link").forEach(link => {
+    if (link.getAttribute("href") === path) link.classList.add("active");
+  });
+
+  // Suche
+  document.addEventListener("input", async (e) => {
+    if (e.target.id !== "search") return;
+    const text = e.target.value.toLowerCase();
+    const res = await fetch("/api/requests");
+    const data = await res.json();
+    display(data.filter(r => r.title.toLowerCase().includes(text)));
+  });
+
+  // Register Form
+  document.addEventListener("submit", async (e) => {
+    if (e.target.id !== "registerForm") return;
+    e.preventDefault();
+
+    const firstname = document.getElementById("firstname").value;
+    const email     = document.getElementById("email").value;
+    const password  = document.getElementById("password").value;
+    const password2 = document.getElementById("password2").value;
+
+    if (!firstname || !email || !password || !password2) {
+      alert("Bitte alle Felder ausfüllen!");
+      return;
+    }
+    if (password !== password2) {
+      alert("Passwörter stimmen nicht!");
+      return;
+    }
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstname, email, password })
+    });
+
+    if (res.ok) {
+      alert("✅ Registrierung erfolgreich!");
+      window.location.href = "/login";
+    } else {
+      alert("❌ Fehler!");
+    }
+  });
+
+});
+</script>
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-3">
+        <img src="images/logo.png" style="width:120px;">
+        <p class="mt-2">
+          Die Plattform für Reparaturanfragen und Reparaturdienste.
+        </p>
+      </div>
+
+      <div class="col-md-3">
+        <h5>Schnellzugriff</h5>
+        <p><a href="/dashboard">Anfragen durchsuchen</a></p>
+        <p><a href="/create-request">Anfrage erstellen</a></p>
+      </div>
+
+      <div class="col-md-3">
+        <h5>Kategorien</h5>
+        <p>Geräte</p>
+        <p>Kamera</p>
+        <p>Handy</p>
+      </div>
+
+      <div class="col-md-3">
+        <h5>Kontakt</h5>
+        <p><i class="bi bi-envelope fs-4 me-3"></i>info@fixit-service.de</p>
+        <p><i class="bi bi-telephone fs-4 me-3"></i>+49 123 456 789</p>
+        <p><i class="bi bi-geo-alt fs-4 me-3"></i>Bad Hersfeld, Deutschland</p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <p class="text-center mt-3">
+      © 2026 FixIt Service
+    </p>
+
+  </div>
+
+</footer>
+
+
+
+</body>
+</html>
