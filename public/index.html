@@ -382,11 +382,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (path === "/kontakt") {
     showPage("kontaktPage");
     } else if (path === "/dashboard") {
+    if (userRole === "admin") {
+    window.location.href = "/admin";
+    } else {
     showPage("dashboardPage");
     const welcome = document.getElementById("welcomeText");
     if (welcome) welcome.innerText = "Willkommen zurück, " + userName;
-    loadRequests();
-    } else if (path === "/register") {
+    loadRequests();}
+
+    }else if (path === "/register") {
     showPage("registerPage");
     } else {
     showPage("homePage"); // ← Startseite für alle
