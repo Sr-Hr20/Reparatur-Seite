@@ -50,7 +50,7 @@ app.post("/api/register", async (req, res) => {
       return res.status(400).send("Email bereits registriert");
     }
 
-    users.push({ firstname, email, password });
+    users.push({ firstname, email, password, role: role || "kunde" });
     saveUsers(users);
 
     console.log("✅ User gespeichert:", email);
@@ -81,7 +81,7 @@ app.post("/api/login", (req, res) => {
   if (user.password !== password) return res.status(401).send("Falsches Passwort");
 
   console.log("✅ Login erfolgreich:", email);
-  res.json({ firstname: user.firstname });
+  res.json({ firstname: user.firstname, role: user.role });
 });
 
 // ✅ Eigene Anfragen abrufen

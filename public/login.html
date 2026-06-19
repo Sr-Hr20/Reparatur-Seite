@@ -185,6 +185,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("userName", data.firstname.charAt(0).toUpperCase() + data.firstname.slice(1));
+    localStorage.setItem("userRole", data.role);
     window.location.href = "/";
   } else {
     const err = document.getElementById("errorMsg");

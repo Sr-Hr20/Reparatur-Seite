@@ -321,15 +321,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Sidebar anzeigen
-  if (isLoggedIn) {
-    document.getElementById("sidebarUser").style.display = "flex";
+    const userRole = localStorage.getItem("userRole");
+
+    if (isLoggedIn) {
     document.getElementById("mainContent").classList.add("with-sidebar");
     const nameEl = document.getElementById("sidebarName");
     if (nameEl) nameEl.innerText = userName;
-  } else {
+
+    if (userRole === "admin") {
+        document.getElementById("sidebarAdmin").style.display = "flex";
+    } else {
+        document.getElementById("sidebarUser").style.display = "flex";
+    }
+    } else {
     document.getElementById("sidebarGuest").style.display = "flex";
     document.getElementById("mainContent").classList.add("with-sidebar");
-  }
+    }
 
   // Aktiver Sidebar-Link
   const allLinks = document.querySelectorAll(".sidebar-link");

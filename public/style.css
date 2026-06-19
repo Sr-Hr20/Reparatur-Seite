@@ -703,3 +703,31 @@ body {
   color: #64748b;
   margin-left: 6px;
 }
+
+/* ✅ Rolle auswählen */
+.role-option {
+  flex: 1;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.role-option i {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.role-option:hover {
+  border-color: #e8531c;
+}
+
+.role-option.selected {
+  border-color: #e8531c;
+  background: rgba(232,83,28,0.15);
+  color: #e8531c;
+}
