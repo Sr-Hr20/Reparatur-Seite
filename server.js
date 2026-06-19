@@ -37,7 +37,7 @@ app.get("/register", (req, res) => res.sendFile(path.join(__dirname, "public/reg
 /* ✅ REGISTER */
 app.post("/api/register", async (req, res) => {
   try {
-    const { firstname, email, password } = req.body;
+    const { firstname, email, password, role } = req.body;
 
     if (!firstname || !email || !password) {
       return res.status(400).send("Fehlende Daten");
@@ -164,8 +164,29 @@ app.post("/api/create-request", upload.single("image"), (req, res) => {
   res.sendStatus(200);
 });
 
-// ✅ Anfragen abrufen (alte Route ersetzen)
-app.get("/api/requests", (req, res) => {
+// ✅ Admin - alle Anfragen
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/admin.html"));
+});
+
+// ✅ Admin - alle Nutzer
+app.get("/api/admin/users", (req, res) => {
+  const users = loadUsers();
+  // Passwörter nicht mitsenden!
+  res.json(users.map(u => ({ firstname: u.firstname, email: u.email, role: u.role })));
+});
+
+// ✅ Admin - alle Anfragen
+app.get("/api/admin/requests", (req, res) => {
   res.json(loadRequests());
 });
 
+app.post("/api/admin/status", (req, res) => {
+  const { id, status } = req.body;
+  const requests = loadRequests();
+  const request = requests.find(r => r.id === id);
+  if (!request) return res.status(404).send("Nicht gefunden");
+  request.status = status;
+  saveRequests(requests);
+  res.sendStatus(200);
+});

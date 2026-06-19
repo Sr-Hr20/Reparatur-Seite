@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel – FixIt Service</title>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .admin-page { min-height: 100vh; background: #020617; padding: 40px 0; }
+    .admin-table { background: #1e293b; border-radius: 16px; border: 1px solid #334155; overflow: hidden; }
+    .admin-table table { width: 100%; border-collapse: collapse; }
+    .admin-table th { background: #0f172a; padding: 14px 16px; color: #94a3b8; font-size: 13px; font-weight: 600; text-align: left; }
+    .admin-table td { padding: 14px 16px; border-top: 1px solid #334155; font-size: 14px; vertical-align: middle; }
+    .admin-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tab-btn { background: #1e293b; border: none; color: #94a3b8; padding: 10px 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: #e8531c; color: white; }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+<!-- ✅ SIDEBAR Admin -->
+<div id="sidebarAdmin" class="sidebar">
+  <div class="sidebar-logo">
+    <img src="images/logo.png" style="width:140px;">
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+    <div>
+      <p id="sidebarNameAdmin" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Admin</small>
+    </div>
+  </div>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/admin" class="sidebar-link active"><i class="bi bi-grid"></i> Dashboard</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-list-ul"></i> Alle Anfragen</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-people"></i> Nutzer</a>
+  </nav>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- ✅ MAIN CONTENT -->
+<div class="main-content with-sidebar">
+  <div class="admin-page">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="fw-bold">Admin Panel</h1>
+          <p class="text-secondary mb-0">Übersicht aller Anfragen und Nutzer</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="row g-4 mb-5">
+        <div class="col-md-3">
+          <div class="stat-box">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="stat-icon blue"><i class="bi bi-graph-up"></i></div>
+              <span class="text-secondary">Anfragen gesamt</span>
+            </div>
+            <h2 class="fw-bold" id="statGesamt">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-box">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="stat-icon yellow"><i class="bi bi-clock"></i></div>
+              <span class="text-secondary">Offen</span>
+            </div>
+            <h2 class="fw-bold" id="statOffen">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-box">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="stat-icon blue"><i class="bi bi-people"></i></div>
+              <span class="text-secondary">Nutzer</span>
+            </div>
+            <h2 class="fw-bold" id="statNutzer">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-box">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+              <span class="text-secondary">Abgeschlossen</span>
+            </div>
+            <h2 class="fw-bold" id="statDone">0</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="d-flex gap-2 mb-4">
+        <button class="tab-btn active" onclick="showTab('anfragen', this)">
+          <i class="bi bi-list-ul me-2"></i>Alle Anfragen
+        </button>
+        <button class="tab-btn" onclick="showTab('nutzer', this)">
+          <i class="bi bi-people me-2"></i>Alle Nutzer
+        </button>
+      </div>
+
+      <!-- Anfragen Tab -->
+      <div id="tabAnfragen">
+        <div class="admin-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Titel</th>
+                <th>Kategorie</th>
+                <th>Nutzer</th>
+                <th>Standort</th>
+                <th>Datum</th>
+                <th>Status</th>
+                <th>Aktion</th>
+              </tr>
+            </thead>
+            <tbody id="anfragenBody">
+              <tr><td colspan="7" class="text-center text-secondary py-4">Laden...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Nutzer Tab -->
+      <div id="tabNutzer" style="display:none;">
+        <div class="admin-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>E-Mail</th>
+                <th>Rolle</th>
+              </tr>
+            </thead>
+            <tbody id="nutzerBody">
+              <tr><td colspan="3" class="text-center text-secondary py-4">Laden...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function logout() {
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("userRole");
+  window.location.href = "/";
+}
+
+// Schutz — nur Admin
+const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+const userRole   = localStorage.getItem("userRole");
+const userName   = localStorage.getItem("userName");
+
+if (!isLoggedIn || userRole !== "admin") {
+  window.location.href = "/login";
+}
+
+// Sidebar Name
+document.getElementById("sidebarNameAdmin").innerText = userName;
+
+function showTab(tab, btn) {
+  document.getElementById("tabAnfragen").style.display = tab === "anfragen" ? "block" : "none";
+  document.getElementById("tabNutzer").style.display   = tab === "nutzer"   ? "block" : "none";
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+async function loadData() {
+  // Anfragen laden
+  const resA = await fetch("/api/admin/requests");
+  const anfragen = await resA.json();
+
+  document.getElementById("statGesamt").innerText = anfragen.length;
+  document.getElementById("statOffen").innerText  = anfragen.filter(r => r.status === "offen").length;
+  document.getElementById("statDone").innerText   = anfragen.filter(r => r.status === "abgeschlossen").length;
+
+  const tbody = document.getElementById("anfragenBody");
+
+  if (anfragen.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center text-secondary py-4">Keine Anfragen vorhanden</td></tr>`;
+  } else {
+    tbody.innerHTML = anfragen.map(r => `
+      <tr>
+        <td><strong>${r.title}</strong></td>
+        <td><span class="badge-category">${r.category}</span></td>
+        <td>${r.user}</td>
+        <td>${r.location || "—"}</td>
+        <td>${r.date}</td>
+        <td>
+          <span class="badge-status ${r.status === 'offen' ? 'status-offen' : r.status === 'abgeschlossen' ? 'status-done' : 'status-progress'}">
+            ${r.status}
+          </span>
+        </td>
+        <td>
+          <select onchange="changeStatus(${r.id}, this.value)" class="form-select form-select-sm" style="background:#0f172a; color:white; border-color:#334155; width:150px;">
+            <option ${r.status === 'offen' ? 'selected' : ''}>offen</option>
+            <option ${r.status === 'in Bearbeitung' ? 'selected' : ''}>in Bearbeitung</option>
+            <option ${r.status === 'abgeschlossen' ? 'selected' : ''}>abgeschlossen</option>
+          </select>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  // Nutzer laden
+  const resU = await fetch("/api/admin/users");
+  const nutzer = await resU.json();
+
+  document.getElementById("statNutzer").innerText = nutzer.length;
+
+  const tbodyN = document.getElementById("nutzerBody");
+  if (nutzer.length === 0) {
+    tbodyN.innerHTML = `<tr><td colspan="3" class="text-center text-secondary py-4">Keine Nutzer</td></tr>`;
+  } else {
+    tbodyN.innerHTML = nutzer.map(u => `
+      <tr>
+        <td><strong>${u.firstname}</strong></td>
+        <td>${u.email}</td>
+        <td>
+          <span class="badge-status ${u.role === 'admin' ? 'status-done' : 'status-offen'}">
+            ${u.role}
+          </span>
+        </td>
+      </tr>
+    `).join("");
+  }
+}
+
+async function changeStatus(id, status) {
+  await fetch("/api/admin/status", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, status })
+  });
+  loadData();
+}
+
+loadData();
+</script>
+
+</body>
+</html>

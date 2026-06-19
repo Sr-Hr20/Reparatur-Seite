@@ -56,6 +56,37 @@
   </div>
 </div>
 
+<!-- ✅ SIDEBAR (Admin) -->
+<div id="sidebarAdmin" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <img src="images/logo.png" style="width:140px;">
+  </div>
+
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+    <div>
+      <p id="sidebarNameAdmin" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Admin</small>
+    </div>
+  </div>
+
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+
+  <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-grid"></i> Dashboard</a>
+    <a href="/admin/anfragen" class="sidebar-link"><i class="bi bi-list-ul"></i> Alle Anfragen</a>
+    <a href="/admin/users" class="sidebar-link"><i class="bi bi-people"></i> Nutzer</a>
+  </nav>
+
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
 
 
 <!-- ✅ MAIN CONTENT -->
@@ -327,6 +358,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("mainContent").classList.add("with-sidebar");
     const nameEl = document.getElementById("sidebarName");
     if (nameEl) nameEl.innerText = userName;
+
+    const nameElAdmin = document.getElementById("sidebarNameAdmin");
+    if (nameElAdmin) nameElAdmin.innerText = userName;
 
     if (userRole === "admin") {
         document.getElementById("sidebarAdmin").style.display = "flex";
