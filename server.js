@@ -31,6 +31,9 @@ const transporter = nodemailer.createTransport({
 /* ✅ ROUTES */
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 app.get("/dashboard", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
+app.get("/kontakt", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 app.get("/login", (req, res) => res.sendFile(path.join(__dirname, "public/login.html")));
 app.get("/register", (req, res) => res.sendFile(path.join(__dirname, "public/register.html")));
 app.get("/bewertungen", (req, res) => {
@@ -194,4 +197,28 @@ app.post("/api/admin/status", (req, res) => {
   request.status = status;
   saveRequests(requests);
   res.sendStatus(200);
+});
+
+app.post("/api/kontakt", async (req, res) => {
+  const { name, email, betreff, nachricht } = req.body;
+
+  try {
+    await transporter.sendMail({
+      from: `FixIt Support <srhassar@gmail.com>`,
+      to: "srhassar@gmail.com",
+      subject: `[Support] ${betreff} – von ${name}`,
+      html: `
+        <h2>Neue Support-Anfrage</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>E-Mail:</strong> ${email}</p>
+        <p><strong>Betreff:</strong> ${betreff}</p>
+        <p><strong>Nachricht:</strong></p>
+        <p>${nachricht}</p>
+      `
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });

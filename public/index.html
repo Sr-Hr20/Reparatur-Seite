@@ -170,12 +170,83 @@
 
 <!-- ✅ KONTAKT PAGE -->
 <div id="kontaktPage" style="display:none;">
-  <div class="page-header text-center">
-    <h1>Customer Support</h1>
-    <p>Wir helfen Ihnen gerne weiter</p>
-  </div>
   <div class="container mt-5">
-    <p>Hier kommt das Kontaktformular…</p>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="fw-bold">Customer Support</h1>
+        <p class="text-secondary mb-0">Wir helfen Ihnen gerne weiter</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Formular -->
+      <div class="col-md-8">
+        <div class="stat-box">
+          <h5 class="fw-bold mb-4">Nachricht senden</h5>
+
+          <form id="kontaktForm">
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">Name *</label>
+              <input type="text" id="kontaktName" class="form-control" placeholder="Ihr Name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">E-Mail *</label>
+              <input type="email" id="kontaktEmail" class="form-control" placeholder="ihre@email.de">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">Betreff *</label>
+              <select id="kontaktBetreff" class="form-select">
+                <option value="">Bitte wählen...</option>
+                <option>Technisches Problem</option>
+                <option>Frage zur Anfrage</option>
+                <option>Feedback</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label text-secondary">Nachricht *</label>
+              <textarea id="kontaktNachricht" class="form-control" rows="5" placeholder="Beschreiben Sie Ihr Anliegen..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary px-4">
+              <i class="bi bi-send me-2"></i>Absenden
+            </button>
+
+            <div id="kontaktSuccess" class="mt-3 p-3 rounded" style="display:none; background:rgba(34,197,94,0.15); border:1px solid #22c55e; color:#22c55e;">
+              <i class="bi bi-check-circle me-2"></i>Nachricht erfolgreich gesendet!
+            </div>
+
+            <div id="kontaktError" class="mt-3 p-3 rounded" style="display:none; background:rgba(239,68,68,0.15); border:1px solid #ef4444; color:#ef4444;">
+              <i class="bi bi-x-circle me-2"></i>Fehler beim Senden. Bitte versuche es erneut.
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- Kontakt Info -->
+      <div class="col-md-4">
+        <div class="stat-box mb-4">
+          <h5 class="fw-bold mb-3">Kontaktdaten</h5>
+          <p><i class="bi bi-envelope me-2 text-primary"></i>info@fixit-service.de</p>
+          <p><i class="bi bi-telephone me-2 text-primary"></i>+49 123 456 789</p>
+          <p><i class="bi bi-geo-alt me-2 text-primary"></i>Bad Hersfeld, Deutschland</p>
+        </div>
+        <div class="stat-box">
+          <h5 class="fw-bold mb-3">Öffnungszeiten</h5>
+          <p class="text-secondary mb-1">Mo – Fr: 09:00 – 18:00</p>
+          <p class="text-secondary mb-1">Sa: 10:00 – 14:00</p>
+          <p class="text-secondary">So: Geschlossen</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -424,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showPage("homePage"); // ← Startseite für alle
     }
 
-  // Register Form
+    // Register Form
   document.addEventListener("submit", async (e) => {
     if (e.target.id !== "registerForm") return;
     e.preventDefault();
@@ -442,7 +513,31 @@ document.addEventListener("DOMContentLoaded", () => {
     if (res.ok) { alert("✅ Registrierung erfolgreich!"); window.location.href = "/login"; }
     else { alert("❌ Fehler!"); }
   });
-});
+
+  // Kontakt Formular
+  document.addEventListener("submit", async (e) => {
+    if (e.target.id !== "kontaktForm") return;
+    e.preventDefault();
+    const name      = document.getElementById("kontaktName").value.trim();
+    const email     = document.getElementById("kontaktEmail").value.trim();
+    const betreff   = document.getElementById("kontaktBetreff").value;
+    const nachricht = document.getElementById("kontaktNachricht").value.trim();
+    if (!name || !email || !betreff || !nachricht) { alert("Bitte alle Felder ausfüllen!"); return; }
+    const res = await fetch("/api/kontakt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, betreff, nachricht })
+    });
+    if (res.ok) {
+      document.getElementById("kontaktSuccess").style.display = "block";
+      document.getElementById("kontaktForm").reset();
+      setTimeout(() => { document.getElementById("kontaktSuccess").style.display = "none"; }, 4000);
+    } else {
+      document.getElementById("kontaktError").style.display = "block";
+    }
+  });
+
+}); // ← Ende DOMContentLoaded
 
 function toggleSidebar() {
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
@@ -464,6 +559,39 @@ function toggleSidebar() {
     overlay.style.display = isOpen ? "block" : "none";
   }
 }
+
+
+// Kontakt Formular
+document.addEventListener("submit", async (e) => {
+  if (e.target.id !== "kontaktForm") return;
+  e.preventDefault();
+
+  const name      = document.getElementById("kontaktName").value.trim();
+  const email     = document.getElementById("kontaktEmail").value.trim();
+  const betreff   = document.getElementById("kontaktBetreff").value;
+  const nachricht = document.getElementById("kontaktNachricht").value.trim();
+
+  if (!name || !email || !betreff || !nachricht) {
+    alert("Bitte alle Felder ausfüllen!");
+    return;
+  }
+
+  const res = await fetch("/api/kontakt", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, betreff, nachricht })
+  });
+
+  if (res.ok) {
+    document.getElementById("kontaktSuccess").style.display = "block";
+    document.getElementById("kontaktForm").reset();
+    setTimeout(() => {
+      document.getElementById("kontaktSuccess").style.display = "none";
+    }, 4000);
+  } else {
+    document.getElementById("kontaktError").style.display = "block";
+  }
+});
 </script>
 
 </body>
