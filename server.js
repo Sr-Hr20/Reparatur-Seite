@@ -33,6 +33,9 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public/index.html"
 app.get("/dashboard", (req, res) => res.sendFile(path.join(__dirname, "public/index.html")));
 app.get("/login", (req, res) => res.sendFile(path.join(__dirname, "public/login.html")));
 app.get("/register", (req, res) => res.sendFile(path.join(__dirname, "public/register.html")));
+app.get("/bewertungen", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/bewertungen.html"));
+});
 
 /* ✅ REGISTER */
 app.post("/api/register", async (req, res) => {
@@ -99,13 +102,15 @@ app.get("/api/requests", (req, res) => {
 
 // ✅ Bewertung speichern
 app.post("/api/rate", (req, res) => {
-  const { requestId, stars } = req.body;
+  const { requestId, stars, feedback } = req.body;
   const requests = loadRequests();
 
-  const request = requests.find(r => r.id === requestId);
+  const request = requests.find(r => String(r.id) === String(requestId));
   if (!request) return res.status(404).send("Nicht gefunden");
 
   request.stars = stars;
+  request.feedback = feedback || "";
+
   saveRequests(requests);
 
   res.sendStatus(200);
