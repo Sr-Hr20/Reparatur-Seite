@@ -194,3 +194,25 @@ app.get("/api/support", (req, res) => {
 app.listen(PORT, () => {
   console.log("✅ Server läuft: http://localhost:3000");
 });
+
+app.post("/api/support/antwort", async (req, res) => {
+  const { email, name, betreff, antwort } = req.body;
+  try {
+    await transporter.sendMail({
+      from: `FixIt Support <srhassar@gmail.com>`,
+      to: email,
+      subject: `Re: ${betreff}`,
+      html: `
+        <h2>Antwort von FixIt Service</h2>
+        <p>Hallo ${name},</p>
+        <p>${antwort}</p>
+        <br>
+        <p>Mit freundlichen Grüßen,<br>FixIt Service Team</p>
+      `
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
