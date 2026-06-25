@@ -1,4 +1,3 @@
-
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -138,6 +137,11 @@ const upload = multer({ storage });
 // ✅ Route hinzufügen
 app.get("/create-request", (req, res) => {
   res.sendFile(path.join(__dirname, "public/create-request.html"));
+});
+
+// ✅ Kategorie-Detailseite (Haushalt-Unterthemen)
+app.get("/kategorie-detail.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/kategorie-detail.html"));
 });
 
 // ✅ Hilfsfunktionen für Anfragen

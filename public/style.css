@@ -824,3 +824,51 @@ body {
   background: #0f172a;
   color: white;
 }
+
+/* ✅ Haushalt-Modal */
+.haushalt-modal-content {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  color: white;
+  padding: 8px;
+}
+
+.haushalt-sub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.haushalt-sub-item {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.haushalt-sub-item:hover {
+  border-color: #e8531c;
+  background: rgba(232,83,28,0.1);
+  color: white;
+}
+
+.haushalt-sub-item i {
+  font-size: 18px;
+  color: #e8531c;
+  flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+  .haushalt-sub-grid {
+    grid-template-columns: 1fr;
+  }
+}
