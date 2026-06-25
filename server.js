@@ -1,3 +1,4 @@
+
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -172,12 +173,22 @@ app.post("/api/create-request", upload.single("image"), (req, res) => {
   res.sendStatus(200);
 });
 
-// ✅ Admin - alle Anfragen
+// ✅ Admin - Dashboard
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin.html"));
 });
 
-// ✅ Admin - alle Nutzer
+// ✅ Admin - Anfragen-Seite
+app.get("/admin/anfragen", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/admin.html"));
+});
+
+// ✅ Admin - Nutzer-Seite
+app.get("/admin/users", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/admin.html"));
+});
+
+// ✅ Admin - API: alle Nutzer
 app.get("/api/admin/users", (req, res) => {
   const users = loadUsers();
   // Passwörter nicht mitsenden!
