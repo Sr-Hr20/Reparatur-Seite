@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 
+  <title>Gerätedetails - FixIt Service</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Dein Style -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .device-box{
+      background:#111827;
+      border:1px solid #1e293b;
+      border-radius:16px;
+      padding:25px;
+    }
+
+    .device-img{
+      width:100%;
+      max-height:400px;
+      object-fit:cover;
+      border-radius:12px;
+    }
+
+    #defects li{
+      margin-bottom:6px;
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+<!-- ================= NAVBAR / SIDEBAR ================= -->
+
+<div id="overlay" onclick="toggleSidebar()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+<div class="mobile-nav">
+  <a href="/"><img src="images/logo.png" style="width:120px;"></a>
+  <button class="hamburger" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+  </button>
+</div>
+
+<!-- GUEST -->
+<div id="sidebarGuest" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+   <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/create-request" class="sidebar-link"><i class="bi bi-plus-circle"></i> Neue Anfrage</a>
+    <a href="/kontakt" class="sidebar-link"><i class="bi bi-headset"></i> Customer Support</a>
+    <a href="/login" class="sidebar-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-shield-lock"></i> Admin Panel</a>
+  </nav>
+</div>
+
+<!-- USER -->
+<div id="sidebarUser" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+  <div class="sidebar-user">
+    <i class="bi bi-person-fill"></i>
+    <p id="sidebarName" class="mb-0 fw-bold"></p>
+    <small class="text-secondary">Kunde</small>
+  </div>
+
+  <hr>
+
+  <nav class="sidebar-nav">
+    <a href="/dashboard" class="sidebar-link"><i class="bi bi-house"></i> Dashboard</a>
+    <a href="/geraete.html" class="sidebar-link"><i class="bi bi-cpu"></i> Geräte</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="sidebarAdmin" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+  <div class="sidebar-user">
+    <i class="bi bi-shield-lock-fill"></i>
+    <p id="sidebarNameAdmin" class="mb-0 fw-bold"></p>
+    <small class="text-secondary">Admin</small>
+  </div>
+
+  <hr>
+
+  <nav class="sidebar-nav">
+    <a href="/admin" class="sidebar-link"><i class="bi bi-grid"></i> Admin</a>
+    <a href="/geraete.html" class="sidebar-link"><i class="bi bi-cpu"></i> Geräte</a>
+  </nav>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<div id="mainContent" class="main-content with-sidebar">
+
+<div class="container mt-5">
+
+  <div class="device-box">
+ <div class="d-flex justify-content-end mb-3">
+  <a href="/geraete.html" class="btn btn-sm text-white" style="background:#f97316; border:none;">
+    <i class="bi bi-arrow-left"></i> Zurück
+  </a>
+</div>
+    <!-- Gerät Bild -->
+    <img id="deviceImage" class="device-img mb-4">
+
+    <!-- Titel -->
+    <h1 id="deviceTitle"></h1>
+
+
+    <!-- Beschreibung -->
+    <p id="deviceDescription" class="text-secondary"></p>
+    
+
+    <!-- Fehler -->
+    <h4 class="mt-4">Häufige Defekte</h4>
+    <ul id="defects"></ul>
+
+    <hr>
+
+    <!-- Anfrage Formular -->
+    <h4>Reparaturanfrage senden</h4>
+
+    <form id="repairForm">
+
+      <div class="mb-3">
+        <label class="form-label">Gerätemodell</label>
+        <input id="model" type="text" class="form-control" placeholder="z.B. Dell XPS 15">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Problembeschreibung</label>
+        <textarea id="description" class="form-control" rows="5" placeholder="Beschreiben Sie den Fehler..."></textarea>
+      </div>
+
+      <button class="btn btn-primary w-100">
+        Anfrage absenden
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+// Geräte Datenbank
+const devices = {
+  desktop: {
+    title: "Desktop PC",
+    image: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200",
+    description: "Leistungsstarker Desktop Computer für Büro, Gaming und professionelle Nutzung.",
+    defects: ["Startet nicht", "Bluescreen", "Überhitzung", "Grafikfehler"]
+  },
+
+  laptop: {
+    title: "Laptop",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200",
+    description: "Mobile Computer für Arbeit, Studium und Gaming.",
+    defects: ["Display defekt", "Akku lädt nicht", "Wasserschaden", "Tastatur reagiert nicht"]
+  },
+
+  monitor: {
+    title: "Monitor",
+    image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=1200",
+    description: "Bildschirme für Büro und Gaming.",
+    defects: ["Kein Bild", "Pixelfehler", "Flackern"]
+  },
+
+  keyboard: {
+    title: "Tastatur",
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200",
+    description: "Mechanische und Standard Tastaturen.",
+    defects: ["Tasten funktionieren nicht", "Flüssigkeitsschaden", "USB Problem"]
+  },
+
+  mouse: {
+    title: "Maus",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Microsoft-wireless-mouse.jpg/960px-Microsoft-wireless-mouse.jpg",
+    description: "Kabelgebundene und kabellose Mäuse.",
+    defects: ["Sensor defekt", "Doppelklick", "Scrollrad kaputt"]
+  },
+
+  headphones: {
+    title: "Kopfhörer",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200",
+    description: "Headsets und Kopfhörer für Alltag und Gaming.",
+    defects: ["Kein Ton", "Mikrofon defekt", "Kabelbruch"]
+  },
+
+  speaker: {
+    title: "Lautsprecher",
+    image: "https://i0.wp.com/www.project-audio.com/wp-content/uploads/2024/05/Speaker-Box-3E-Carbon-satin-black-detail-scaled.jpg",
+    description: "Audio Lautsprecher für Musik und Filme.",
+    defects: ["Kein Ton", "Rauschen", "Bluetooth Problem"]
+  },
+
+  printer: {
+    title: "Drucker",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH2DeG-sjUPdNDvO2HHJg7xPzfDeAQ-i2lpHNSE8UywA&s",
+    description: "Laser- und Tintenstrahldrucker.",
+    defects: ["Papierstau", "Druckt nicht", "Fehler im WLAN"]
+  } , 
+  microphone: {
+  title: "Mikrofone",
+  image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8dxmZCsffncSXCznHuxT3aCdKHyaDAhldr-7JhZCHvg&s",
+  description: "USB- und Studio-Mikrofone für Aufnahme und Streaming.",
+  defects: [
+    "Kein Ton",
+    "Rauschen",
+    "USB wird nicht erkannt",
+    "Verbindungsproblem"
+  ]
+} , 
+scanner: {
+  title: "Scanner",
+  image: "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1722438716-1631290135-epson-fastfoto-ff-680w-photo-scanner-1631290106.jpg",
+  description: "Scanner für Dokumente und Fotos.",
+  defects: [
+    "Scan startet nicht",
+    "Schlechte Qualität",
+    "USB wird nicht erkannt"
+  ]
+} , 
+projector: {
+  title: "Beamer",
+  image: "https://www.beamer24.de/media/image/41/b8/a7/BenQ-LK935_Laser-Beamer_4K_5500-Lm_04_600x600.jpg",
+  description: "Projektor für Präsentationen, Schule und Heimkino.",
+  defects: [
+    "Kein Bild",
+    "Lampe defekt",
+    "Überhitzung",
+    "HDMI Problem"
+  ]
+}
+};
+
+// URL lesen
+const type = new URLSearchParams(window.location.search).get("type");
+const device = devices[type];
+
+// Anzeige
+if(device){
+  document.getElementById("deviceTitle").innerText = device.title;
+  document.getElementById("deviceDescription").innerText = device.description;
+  document.getElementById("deviceImage").src = device.image;
+
+  const list = document.getElementById("defects");
+  device.defects.forEach(d => {
+    const li = document.createElement("li");
+    li.textContent = d;
+    list.appendChild(li);
+  });
+}
+
+// Form
+document.getElementById("repairForm").addEventListener("submit", e => {
+  e.preventDefault();
+
+  alert("Anfrage wurde erfolgreich gesendet!");
+});
+
+// Sidebar Logic
+function toggleSidebar(){
+  const overlay = document.getElementById("overlay");
+  const sidebar = document.querySelector(".sidebar");
+  const open = sidebar.classList.toggle("open");
+  overlay.style.display = open ? "block" : "none";
+}
+
+function logout(){
+  localStorage.clear();
+  location.href = "/";
+}
+
+// User check
+document.addEventListener("DOMContentLoaded", () => {
+  const user = localStorage.getItem("userName");
+  const role = localStorage.getItem("userRole");
+
+  if(role === "admin"){
+    document.getElementById("sidebarAdmin").style.display = "flex";
+  } else if(user){
+    document.getElementById("sidebarUser").style.display = "flex";
+    document.getElementById("sidebarName").innerText = user;
+  } else {
+    document.getElementById("sidebarGuest").style.display = "flex";
+  }
+});
+
+</script>
+
+</body>
+</html>

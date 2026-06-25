@@ -824,3 +824,43 @@ body {
   background: #0f172a;
   color: white;
 }
+.section-title {
+  color: #f59e0b;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.device-card {
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.2s ease;
+}
+
+.device-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.device-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.device-card span {
+  display: block;
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+}

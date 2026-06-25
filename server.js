@@ -39,7 +39,9 @@ app.get("/register", (req, res) => res.sendFile(path.join(__dirname, "public/reg
 app.get("/bewertungen", (req, res) => {
   res.sendFile(path.join(__dirname, "public/bewertungen.html"));
 });
-
+app.get("/geraete.html", (req, res) => {
+  res.sendFile(__dirname + "public/geraete.html");
+});
 /* ✅ REGISTER */
 app.post("/api/register", async (req, res) => {
   try {

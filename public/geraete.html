@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerate - FixIt Service</title>
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- DEIN STYLE -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark text-white">
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="toggleSidebar()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <a href="/"><img src="images/logo.png" style="width:120px;"></a>
+  <button class="hamburger" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+  </button>
+</div>
+
+<!-- SIDEBAR GUEST -->
+<div id="sidebarGuest" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/create-request" class="sidebar-link"><i class="bi bi-plus-circle"></i> Neue Anfrage</a>
+    <a href="/kontakt" class="sidebar-link"><i class="bi bi-headset"></i> Customer Support</a>
+    <a href="/login" class="sidebar-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-shield-lock"></i> Admin Panel</a>
+  </nav>
+</div>
+
+<!-- SIDEBAR USER -->
+<div id="sidebarUser" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-person-fill"></i></div>
+    <div>
+      <p id="sidebarName" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Kunde</small>
+    </div>
+  </div>
+
+  <hr style="border-color:#1e293b;">
+
+  <nav class="sidebar-nav">
+    <a href="/dashboard" class="sidebar-link"><i class="bi bi-house"></i> Dashboard</a>
+    <a href="/geraete.html" class="sidebar-link active"><i class="bi bi-cpu"></i> Gerate</a>
+    <a href="/create-request" class="sidebar-link"><i class="bi bi-plus-circle"></i> Neue Anfrage</a>
+    <a href="/kontakt" class="sidebar-link"><i class="bi bi-headset"></i> Support</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- SIDEBAR ADMIN -->
+<div id="sidebarAdmin" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+    <div>
+      <p id="sidebarNameAdmin" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Admin</small>
+    </div>
+  </div>
+
+  <hr style="border-color:#1e293b;">
+
+  <nav class="sidebar-nav">
+    <a href="/admin" class="sidebar-link"><i class="bi bi-grid"></i> Admin</a>
+    <a href="/geraete.html" class="sidebar-link active"><i class="bi bi-cpu"></i> Gerate</a>
+    <a href="/admin/users" class="sidebar-link"><i class="bi bi-people"></i> Nutzer</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="main-content with-sidebar">
+
+<div class="container mt-5">
+
+  <h1 class="mb-4">Geräte</h1>
+  <p class="text-secondary">Elektronische Geräte</p>
+<div class="device-grid">
+
+  <a href="/device.html?type=desktop" class="device-card">
+    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=800" alt="Desktop PCs">
+    <span>Desktop PCs</span>
+  </a>
+
+  <a href="/device.html?type=laptop" class="device-card">
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800" alt="Laptops">
+    <span>Laptops</span>
+  </a>
+
+ <a href="/device.html?type=monitor" class="device-card">
+    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" alt="Monitore">
+    <span>Monitore</span>
+  </a>
+    <a href="/device.html?type=keyboard" class="device-card">
+    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800" alt="Tastatur">
+    <span>Tastatur</span>
+  </a>
+
+  <a href="/device.html?type=mouse" class="device-card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Microsoft-wireless-mouse.jpg/960px-Microsoft-wireless-mouse.jpg" alt="Maus">
+    <span>Maus</span>
+  </a>
+
+  <a href="/device.html?type=headphones" class="device-card">
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800" alt="Kopfhörer">
+    <span>Kopfhörer</span>
+  </a>
+
+    <a href="/device.html?type=speaker" class="device-card">
+    <img src="https://i0.wp.com/www.project-audio.com/wp-content/uploads/2024/05/Speaker-Box-3E-Carbon-satin-black-detail-scaled.jpg?fit=1920%2C1006&ssl=1" alt="Speaker">
+    <span>Speaker</span>
+  </a>
+
+  <a href="/device.html?type=microphone" class="device-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8dxmZCsffncSXCznHuxT3aCdKHyaDAhldr-7JhZCHvg&s" alt="Mikrofone">
+    <span>Mikrofone</span>
+  </a>
+
+ <a href="/device.html?type=printer" class="device-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH2DeG-sjUPdNDvO2HHJg7xPzfDeAQ-i2lpHNSE8UywA&s" alt="Drucker">
+    <span>Drucker</span>
+  </a>
+
+  <a href="/device.html?type=scanner" class="device-card">
+    <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1722438716-1631290135-epson-fastfoto-ff-680w-photo-scanner-1631290106.jpg" alt="Scanner">
+    <span>Scanner</span>
+  </a>
+
+    <a href="/device.html?type=projector" class="device-card">
+    <img src="https://www.beamer24.de/media/image/41/b8/a7/BenQ-LK935_Laser-Beamer_4K_5500-Lm_04_600x600.jpg" alt="Beamer">
+    <span>Beamer</span>
+  </a>
+
+</div>
+<!-- JS -->
+<script>
+function logout() {
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  window.location.href = "/";
+}
+
+function toggleSidebar() {
+  const overlay = document.getElementById("overlay");
+  const sidebar = document.querySelector(".sidebar.open") || document.querySelector(".sidebar");
+  if (!sidebar) return;
+
+  const isOpen = sidebar.classList.toggle("open");
+  overlay.style.display = isOpen ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  const userRole = localStorage.getItem("userRole");
+  const userName = localStorage.getItem("userName");
+
+  if (isLoggedIn) {
+    document.getElementById("mainContent").classList.add("with-sidebar");
+
+    if (userRole === "admin") {
+      document.getElementById("sidebarAdmin").style.display = "flex";
+      document.getElementById("sidebarNameAdmin").innerText = userName;
+    } else {
+      document.getElementById("sidebarUser").style.display = "flex";
+      document.getElementById("sidebarName").innerText = userName;
+    }
+  } else {
+    document.getElementById("sidebarGuest").style.display = "flex";
+  }
+});
+</script>
+
+</body>
+</html>
