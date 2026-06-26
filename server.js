@@ -53,6 +53,7 @@ app.get("/create-request", (req, res) => res.sendFile(path.join(__dirname, "publ
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "public/admin.html")));
 app.get("/admin/anfragen", (req, res) => res.sendFile(path.join(__dirname, "public/admin.html")));
 app.get("/admin/users", (req, res) => res.sendFile(path.join(__dirname, "public/admin.html")));
+app.get("/kategorie-detail.html", (req, res) => res.sendFile(path.join(__dirname, "public/kategorie-detail.html")));
 
 /* ✅ REGISTER */
 app.post("/api/register", async (req, res) => {
@@ -151,7 +152,6 @@ app.post("/api/admin/status", (req, res) => {
 app.post("/api/kontakt", async (req, res) => {
   const { name, email, betreff, nachricht } = req.body;
   try {
-    // Support in JSON speichern
     const supportFile = "support.json";
     const support = fs.existsSync(supportFile)
       ? JSON.parse(fs.readFileSync(supportFile, "utf8"))
@@ -163,7 +163,6 @@ app.post("/api/kontakt", async (req, res) => {
     });
     fs.writeFileSync(supportFile, JSON.stringify(support, null, 2));
 
-    // Email senden
     await transporter.sendMail({
       from: `FixIt Support <srhassar@gmail.com>`,
       to: "srhassar@gmail.com",
@@ -190,11 +189,6 @@ app.get("/api/support", (req, res) => {
   res.json(JSON.parse(fs.readFileSync(supportFile, "utf8")));
 });
 
-/* ✅ START */
-app.listen(PORT, () => {
-  console.log("✅ Server läuft: http://localhost:3000");
-});
-
 app.post("/api/support/antwort", async (req, res) => {
   const { email, name, betreff, antwort } = req.body;
   try {
@@ -215,4 +209,9 @@ app.post("/api/support/antwort", async (req, res) => {
     console.error(err);
     res.sendStatus(500);
   }
+});
+
+/* ✅ START */
+app.listen(PORT, () => {
+  console.log("✅ Server läuft: http://localhost:3000");
 });
