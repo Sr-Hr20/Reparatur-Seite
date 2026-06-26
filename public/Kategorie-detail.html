@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kategorie – FixIt Service</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .detail-page { min-height: 100vh; background: #020617; padding: 60px 0; }
+    .detail-hero {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .detail-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 22px;
+      background: rgba(232,83,28,0.15);
+      color: #e8531c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      flex-shrink: 0;
+    }
+    .detail-hero h1 { font-size: 32px; font-weight: 700; margin-bottom: 6px; }
+    .detail-hero p { color: #94a3b8; margin: 0; font-size: 15px; }
+    .detail-section {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 24px;
+    }
+    .detail-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .detail-section h3 i { color: #e8531c; }
+    .detail-section p { color: #cbd5e1; font-size: 15px; line-height: 1.7; margin: 0; }
+    .defekt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .defekt-item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+    .defekt-item i { color: #e8531c; font-size: 16px; flex-shrink: 0; }
+    .detail-btn-row { text-align: center; margin-top: 32px; }
+    .btn-detail-submit {
+      display: inline-block;
+      background: linear-gradient(to right, #e8531c, #c2410c);
+      border: none;
+      border-radius: 14px;
+      padding: 14px 40px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-detail-submit:hover { opacity: 0.9; transform: translateY(-1px); color: white; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .back-link:hover { color: #e8531c; }
+    @media (max-width: 576px) {
+      .defekt-grid { grid-template-columns: 1fr; }
+      .detail-hero { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-white">
+
+<!-- ✅ SIDEBAR (nicht eingeloggt) -->
+<div id="sidebarGuest" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/create-request" class="sidebar-link"><i class="bi bi-plus-circle"></i> Neue Anfrage</a>
+    <a href="/kontakt" class="sidebar-link"><i class="bi bi-headset"></i> Customer Support</a>
+    <a href="/login" class="sidebar-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-shield-lock"></i> Admin Panel</a>
+  </nav>
+</div>
+
+<!-- ✅ SIDEBAR (eingeloggt) -->
+<div id="sidebarUser" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-person-fill"></i></div>
+    <div>
+      <p id="sidebarName" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Kunde</small>
+    </div>
+  </div>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <nav class="sidebar-nav">
+    <a href="/dashboard" class="sidebar-link"><i class="bi bi-house"></i> Dashboard</a>
+    <a href="/create-request" class="sidebar-link"><i class="bi bi-plus-circle"></i> Neue Anfrage</a>
+    <a href="/kontakt" class="sidebar-link"><i class="bi bi-headset"></i> Customer Support</a>
+    <a href="/bewertungen" class="sidebar-link"><i class="bi bi-star"></i> Bewertungen</a>
+  </nav>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- ✅ SIDEBAR (Admin) -->
+<div id="sidebarAdmin" class="sidebar" style="display:none;">
+  <div class="sidebar-logo">
+    <a href="/"><img src="images/logo.png" style="width:140px;"></a>
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar"><i class="bi bi-shield-lock-fill"></i></div>
+    <div>
+      <p id="sidebarNameAdmin" class="mb-0 fw-bold"></p>
+      <small class="text-secondary">Admin</small>
+    </div>
+  </div>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <nav class="sidebar-nav">
+    <a href="/" class="sidebar-link"><i class="bi bi-house"></i> Startseite</a>
+    <a href="/admin" class="sidebar-link"><i class="bi bi-grid"></i> Dashboard</a>
+    <a href="/admin/anfragen" class="sidebar-link"><i class="bi bi-list-ul"></i> Alle Anfragen</a>
+    <a href="/admin/users" class="sidebar-link"><i class="bi bi-people"></i> Nutzer</a>
+  </nav>
+  <hr style="border-color:#1e293b; margin: 16px 0;">
+  <div class="sidebar-bottom">
+    <button onclick="logout()" class="sidebar-logout">
+      <i class="bi bi-box-arrow-left"></i> Abmelden
+    </button>
+  </div>
+</div>
+
+<!-- ✅ MAIN CONTENT -->
+<div id="mainContent" class="main-content">
+  <div class="detail-page">
+    <div class="container" style="max-width:800px;">
+
+      <a href="javascript:history.back()" class="back-link">
+        <i class="bi bi-arrow-left"></i> Zurück
+      </a>
+
+      <div class="detail-hero">
+        <div class="detail-icon" id="detailIcon"><i class="bi bi-question-circle"></i></div>
+        <div>
+          <h1 id="detailTitle">Kategorie</h1>
+          <p id="detailSubtitle">Servicebeschreibung wird geladen...</p>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3><i class="bi bi-info-circle"></i>Servicebeschreibung</h3>
+        <p id="detailDescription"></p>
+      </div>
+
+      <div class="detail-section">
+        <h3><i class="bi bi-exclamation-triangle"></i>Typische Defekte</h3>
+        <div class="defekt-grid" id="detailDefekte"></div>
+      </div>
+
+      <div class="detail-btn-row">
+        <a href="#" id="detailCreateBtn" class="btn-detail-submit">
+          <i class="bi bi-plus-circle me-2"></i>Anfrage erstellen
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function logout() {
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("userRole");
+  window.location.href = "/";
+}
+
+// ✅ Daten für alle Unterthemen (Haushalt-Kategorie)
+const itemData = {
+  "waschmaschine": {
+    title: "Waschmaschine / Trockner",
+    icon: "bi-droplet-half",
+    subtitle: "Reparatur von Waschmaschinen und Trocknern",
+    description: "Wir reparieren Waschmaschinen und Trockner aller gängigen Hersteller. Egal ob die Maschine nicht mehr startet, Wasser verliert oder ungewöhnliche Geräusche macht — unsere Techniker finden die Ursache und beheben das Problem schnell und zuverlässig.",
+    defekte: ["Trommel dreht sich nicht", "Pumpe defekt / Wasser läuft nicht ab", "Heizung funktioniert nicht", "Ungewöhnliche Geräusche", "Tür schließt nicht richtig", "Wassereinlauf-Ventil defekt"]
+  },
+  "spuelmaschine": {
+    title: "Spülmaschine",
+    icon: "bi-cup-straw",
+    subtitle: "Reparatur von Spülmaschinen",
+    description: "Eine defekte Spülmaschine kann den Alltag ganz schön durcheinanderbringen. Wir kümmern uns um Reinigungsprobleme, Leckagen, Fehlermeldungen und mehr — schnell, sauber und zuverlässig.",
+    defekte: ["Geschirr wird nicht sauber", "Wasser bleibt stehen", "Maschine startet nicht", "Leckage / Wasser am Boden", "Sprüharm verstopft", "Fehlercode im Display"]
+  },
+  "herd": {
+    title: "Herd / Backofen",
+    icon: "bi-fire",
+    subtitle: "Reparatur von Herden und Backöfen",
+    description: "Ob Ceranfeld, Induktion oder klassischer Backofen — wir reparieren Heizelemente, defekte Steuerungen und mechanische Probleme an Herden und Backöfen aller Art.",
+    defekte: ["Heizelement defekt", "Backofen heizt nicht richtig", "Temperaturanzeige falsch", "Ceranfeld-Bedienfeld reagiert nicht", "Ofentür schließt nicht dicht", "Lüfter / Umluft funktioniert nicht"]
+  },
+  "heizung": {
+    title: "Heizung",
+    icon: "bi-thermometer-sun",
+    subtitle: "Reparatur und Wartung von Heizungsanlagen",
+    description: "Eine zuverlässig funktionierende Heizung ist besonders im Winter unverzichtbar. Wir prüfen und reparieren Heizkörper, Thermostate und Heizungsanlagen, damit es bei Ihnen wieder warm wird.",
+    defekte: ["Heizkörper wird nicht warm", "Thermostat defekt", "Luft im Heizsystem", "Ungewöhnliche Geräusche", "Druckverlust in der Anlage", "Heizung springt nicht an"]
+  },
+  "wasserhahn": {
+    title: "Wasserhahn / Rohrleitungen",
+    icon: "bi-droplet",
+    subtitle: "Reparatur von Wasserhähnen und Rohrleitungen",
+    description: "Tropfende Wasserhähne oder undichte Rohre können schnell zu größeren Schäden führen. Wir beheben Lecks, tauschen Dichtungen und sorgen für eine zuverlässige Wasserversorgung in Ihrem Zuhause.",
+    defekte: ["Wasserhahn tropft", "Verstopfter Abfluss", "Undichte Rohrverbindung", "Niedriger Wasserdruck", "Armatur lässt sich schwer drehen", "Wasserschaden durch Leckage"]
+  },
+  "moebel": {
+    title: "Möbel",
+    icon: "bi-house-door",
+    subtitle: "Reparatur und Aufbau von Möbeln",
+    description: "Vom losen Scharnier bis zum beschädigten Möbelstück — wir reparieren und montieren Möbel aller Art, damit Ihre Einrichtung wieder vollständig und funktional ist.",
+    defekte: ["Lose oder defekte Scharniere", "Beschädigte Oberflächen", "Wackelige Standbeine", "Schubladen klemmen", "Fehlende Montageteile", "Beschläge ausgetauscht"]
+  },
+
+  // ✅ Geräte
+  "laptop": {
+    title: "Laptop / PC",
+    icon: "bi-laptop",
+    subtitle: "Reparatur von Laptops und PCs",
+    description: "Egal ob langsamer Rechner, defekter Bildschirm oder Hardware-Probleme — wir diagnostizieren und reparieren Laptops und PCs aller gängigen Hersteller.",
+    defekte: ["Gerät startet nicht", "Display defekt / Pixelfehler", "Akku lädt nicht", "Überhitzung / lauter Lüfter", "Festplatte / SSD defekt", "Tastatur funktioniert nicht"]
+  },
+  "fernseher": {
+    title: "Fernseher",
+    icon: "bi-tv",
+    subtitle: "Reparatur von Fernsehgeräten",
+    description: "Wir reparieren Fernseher aller Marken und Größen — von Bildfehlern über Tonprobleme bis hin zu defekten Anschlüssen.",
+    defekte: ["Kein Bild / schwarzer Bildschirm", "Streifen oder Flackern", "Kein Ton", "Fernbedienung reagiert nicht", "Gerät schaltet sich selbst aus", "Defekte Anschlüsse (HDMI etc.)"]
+  },
+  "lautsprecher": {
+    title: "Lautsprecher / Audio",
+    icon: "bi-speaker",
+    subtitle: "Reparatur von Lautsprechern und Audiogeräten",
+    description: "Knackende, leise oder ganz stumme Lautsprecher? Wir reparieren Audiogeräte und Lautsprecher jeder Art zuverlässig.",
+    defekte: ["Kein Ton / sehr leise", "Knacken oder Verzerrungen", "Bluetooth-Verbindung fehlerhaft", "Akku defekt (bei portablen Geräten)", "Kabel oder Anschluss beschädigt", "Gerät lädt nicht mehr"]
+  },
+  "drucker": {
+    title: "Drucker / Scanner",
+    icon: "bi-printer",
+    subtitle: "Reparatur von Druckern und Scannern",
+    description: "Papierstau, blasse Ausdrucke oder Verbindungsprobleme — wir kümmern uns um Ihren Drucker oder Scanner, damit er wieder zuverlässig funktioniert.",
+    defekte: ["Papierstau", "Blasser oder fehlerhafter Druck", "Patrone wird nicht erkannt", "Keine WLAN-Verbindung", "Scanner liefert kein Ergebnis", "Gerät reagiert nicht"]
+  },
+  "konsole": {
+    title: "Spielkonsole",
+    icon: "bi-controller",
+    subtitle: "Reparatur von Spielkonsolen",
+    description: "Ob Überhitzung, defektes Laufwerk oder Controller-Probleme — wir reparieren gängige Spielkonsolen schnell und fachgerecht.",
+    defekte: ["Konsole startet nicht", "Überhitzung", "Laufwerk liest Disc nicht", "Controller verbindet nicht", "Keine HDMI-Ausgabe", "Lüftergeräusche / Fehlercodes"]
+  },
+  "elektronik": {
+    title: "Sonstige Elektronik",
+    icon: "bi-tools",
+    subtitle: "Reparatur sonstiger Elektronikgeräte",
+    description: "Für alle weiteren elektronischen Geräte, die nicht in eine andere Kategorie passen, finden unsere Techniker eine passende Lösung.",
+    defekte: ["Gerät startet nicht", "Stromversorgung defekt", "Beschädigtes Gehäuse", "Fehlfunktion der Steuerung", "Kabel- oder Steckerschaden", "Verschleißteile defekt"]
+  },
+
+  // ✅ Kamera
+  "objektiv": {
+    title: "Objektiv-Defekt",
+    icon: "bi-camera2",
+    subtitle: "Reparatur von Kamera-Objektiven",
+    description: "Verschwommene Bilder oder ein klemmender Zoom? Wir reparieren Objektive und beheben mechanische sowie optische Defekte.",
+    defekte: ["Autofokus funktioniert nicht", "Zoom klemmt", "Kratzer oder Pilzbefall auf der Linse", "Verschlussmechanismus defekt", "Bildstabilisator funktioniert nicht", "Objektiv lässt sich nicht montieren"]
+  },
+  "kamera-akku": {
+    title: "Akku / Stromversorgung (Kamera)",
+    icon: "bi-battery-half",
+    subtitle: "Reparatur der Stromversorgung bei Kameras",
+    description: "Lädt der Akku nicht mehr oder schaltet sich die Kamera plötzlich ab? Wir prüfen und reparieren die Stromversorgung Ihrer Kamera.",
+    defekte: ["Akku lädt nicht", "Kamera schaltet sich plötzlich ab", "Ladegerät wird nicht erkannt", "Kurze Akkulaufzeit", "Defekter Akkufachdeckel", "Kontakte oxidiert / beschädigt"]
+  },
+  "kamera-display": {
+    title: "Display / Sucher (Kamera)",
+    icon: "bi-aspect-ratio",
+    subtitle: "Reparatur von Kamera-Displays und Suchern",
+    description: "Ein gesprungenes Display oder ein verschwommener Sucher beeinträchtigen das Fotografieren erheblich. Wir reparieren beides fachgerecht.",
+    defekte: ["Display gesprungen", "Display zeigt nichts an", "Sucher verschwommen", "Touchscreen reagiert nicht", "Pixelfehler", "Display flackert"]
+  },
+  "speicherkarte": {
+    title: "Speicherkarten-Fehler",
+    icon: "bi-sd-card",
+    subtitle: "Hilfe bei Speicherkarten-Problemen",
+    description: "Wird die Speicherkarte nicht erkannt oder gibt es Fehlermeldungen? Wir prüfen Kartenslot und Speicherkarte und stellen die Funktion wieder her.",
+    defekte: ["Karte wird nicht erkannt", "Fehlermeldung beim Speichern", "Kartenslot beschädigt", "Daten lassen sich nicht auslesen", "Karte ist schreibgeschützt", "Kontakte verschmutzt oder defekt"]
+  },
+  "actioncam": {
+    title: "Action-Cam / Drohne",
+    icon: "bi-camera-video",
+    subtitle: "Reparatur von Action-Cams und Drohnen",
+    description: "Von Sturzschäden bis zu Verbindungsproblemen — wir reparieren Action-Cams und Drohnen, damit Sie wieder durchstarten können.",
+    defekte: ["Gerät startet nicht nach Sturz", "Kein Funk- / WLAN-Signal", "Kamera liefert kein Bild", "Akku oder Ladeproblem", "Propeller / Gehäuse beschädigt", "Gimbal funktioniert nicht richtig"]
+  },
+  "kamera-sonstige": {
+    title: "Sonstige Kamera-Defekte",
+    icon: "bi-gear",
+    subtitle: "Weitere Kamera-Reparaturen",
+    description: "Für alle weiteren Probleme rund um Ihre Kamera, die nicht in eine andere Unterkategorie passen, finden wir eine passende Lösung.",
+    defekte: ["Gehäuseschaden", "Blitz funktioniert nicht", "Auslöser klemmt", "Wasserschaden", "Software- / Firmware-Fehler", "Anschlüsse defekt"]
+  },
+
+  // ✅ Handy
+  "handy-display": {
+    title: "Display gebrochen",
+    icon: "bi-phone-flip",
+    subtitle: "Display-Reparatur für Smartphones",
+    description: "Ein gesprungenes oder schwarzes Display ist eines der häufigsten Probleme bei Smartphones. Wir tauschen Displays schnell und zuverlässig aus.",
+    defekte: ["Display gesprungen / zersplittert", "Schwarzes Display", "Touchscreen reagiert nicht", "Farbfehler oder Streifen", "Display löst sich vom Gehäuse", "Helligkeit lässt sich nicht regeln"]
+  },
+  "handy-akku": {
+    title: "Akku-Tausch",
+    icon: "bi-battery-charging",
+    subtitle: "Akku-Reparatur und -Tausch bei Smartphones",
+    description: "Lässt die Akkulaufzeit deutlich nach oder schaltet sich das Gerät unerwartet ab? Wir tauschen den Akku fachgerecht aus.",
+    defekte: ["Akku entlädt sich sehr schnell", "Gerät schaltet sich plötzlich ab", "Akku lädt nicht vollständig", "Gerät wird beim Laden heiß", "Akku ist aufgequollen", "Ladestand wird falsch angezeigt"]
+  },
+  "wasserschaden": {
+    title: "Wasserschaden",
+    icon: "bi-water",
+    subtitle: "Reparatur nach Wasserschäden",
+    description: "Schnelles Handeln ist bei einem Wasserschaden entscheidend. Wir prüfen die Elektronik und retten möglichst viele Funktionen Ihres Geräts.",
+    defekte: ["Gerät startet nicht mehr", "Display zeigt Wasserflecken", "Lautsprecher klingt dumpf", "Anschlüsse korrodiert", "Akku beschädigt", "Kamera beschlagen"]
+  },
+  "ladebuchse": {
+    title: "Ladebuchse defekt",
+    icon: "bi-usb-plug",
+    subtitle: "Reparatur der Ladebuchse bei Smartphones",
+    description: "Wenn das Handy nicht mehr lädt oder das Kabel wackelt, liegt es oft an der Ladebuchse. Wir tauschen sie zuverlässig aus.",
+    defekte: ["Gerät lädt nicht mehr", "Ladekabel hält nicht fest", "Laden funktioniert nur in bestimmter Position", "Ladebuchse verschmutzt oder verbogen", "Kein Datenaustausch über Kabel möglich", "Ladeanzeige bleibt aus"]
+  },
+  "handy-lautsprecher": {
+    title: "Lautsprecher / Mikrofon",
+    icon: "bi-mic",
+    subtitle: "Reparatur von Lautsprecher und Mikrofon bei Smartphones",
+    description: "Schlechte Anrufqualität oder kein Ton beim Musikhören? Wir reparieren Lautsprecher und Mikrofon Ihres Smartphones.",
+    defekte: ["Kein Ton beim Telefonieren", "Gesprächspartner hört Sie nicht", "Lautsprecher knackt oder verzerrt", "Kein Ton bei Medien / Musik", "Vibrationsmotor defekt", "Freisprechfunktion funktioniert nicht"]
+  },
+  "tablet": {
+    title: "Tablet-Reparatur",
+    icon: "bi-tablet",
+    subtitle: "Reparatur von Tablets",
+    description: "Von gesprungenem Display bis zu Softwareproblemen — wir reparieren Tablets verschiedenster Hersteller zuverlässig und schnell.",
+    defekte: ["Display gesprungen", "Akku schwach oder defekt", "Gerät startet nicht", "Touchscreen reagiert nicht richtig", "Ladebuchse defekt", "Software hängt sich auf"]
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+  const userName   = localStorage.getItem("userName");
+  const userRole   = localStorage.getItem("userRole");
+
+  if (isLoggedIn) {
+    document.getElementById("mainContent").classList.add("with-sidebar");
+    const nameEl = document.getElementById("sidebarName");
+    if (nameEl) nameEl.innerText = userName;
+    const nameElAdmin = document.getElementById("sidebarNameAdmin");
+    if (nameElAdmin) nameElAdmin.innerText = userName;
+
+    if (userRole === "admin") {
+      document.getElementById("sidebarAdmin").style.display = "flex";
+    } else {
+      document.getElementById("sidebarUser").style.display = "flex";
+    }
+  } else {
+    document.getElementById("sidebarGuest").style.display = "flex";
+    document.getElementById("mainContent").classList.add("with-sidebar");
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const item = params.get("item");
+  const data = itemData[item];
+
+  if (!data) {
+    document.getElementById("detailTitle").innerText = "Kategorie nicht gefunden";
+    document.getElementById("detailSubtitle").innerText = "Bitte gehen Sie zurück und wählen Sie eine gültige Kategorie.";
+    return;
+  }
+
+  document.getElementById("detailIcon").innerHTML = `<i class="bi ${data.icon}"></i>`;
+  document.getElementById("detailTitle").innerText = data.title;
+  document.getElementById("detailSubtitle").innerText = data.subtitle;
+  document.getElementById("detailDescription").innerText = data.description;
+
+  document.getElementById("detailDefekte").innerHTML = data.defekte.map(d => `
+    <div class="defekt-item"><i class="bi bi-dot"></i><span>${d}</span></div>
+  `).join("");
+
+  document.getElementById("detailCreateBtn").href = "/create-request";
+});
+</script>
+
+</body>
+</html>

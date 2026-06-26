@@ -125,10 +125,10 @@
       <h2 class="section-title">Kategorien</h2>
       <p class="section-subtitle">Wählen Sie aus verschiedenen Reparatur-Kategorien</p>
       <div class="row mt-5 g-4">
-        <div class="col-md-3"><div class="category-card-new"><div class="icon-wrapper"><i class="bi bi-wrench"></i></div><h5>Geräte</h5><p>Elektronik und Haushaltsgeräte</p></div></div>
-        <div class="col-md-3"><div class="category-card-new"><div class="icon-wrapper"><i class="bi bi-house"></i></div><h5>Haushalt</h5><p>Haushaltsreparaturen</p></div></div>
-        <div class="col-md-3"><div class="category-card-new"><div class="icon-wrapper"><i class="bi bi-camera"></i></div><h5>Kamera</h5><p>Kameras und Fotografie</p></div></div>
-        <div class="col-md-3"><div class="category-card-new"><div class="icon-wrapper"><i class="bi bi-phone"></i></div><h5>Handy</h5><p>Smartphones und Tablets</p></div></div>
+        <div class="col-md-3"><div class="category-card-new" style="cursor:pointer;" onclick="openGeraeteModal()"><div class="icon-wrapper"><i class="bi bi-wrench"></i></div><h5>Geräte</h5><p>Elektronik und Haushaltsgeräte</p></div></div>
+        <div class="col-md-3"><div class="category-card-new" style="cursor:pointer;" onclick="openHaushaltModal()"><div class="icon-wrapper"><i class="bi bi-house"></i></div><h5>Haushalt</h5><p>Haushaltsreparaturen</p></div></div>
+        <div class="col-md-3"><div class="category-card-new" style="cursor:pointer;" onclick="openKameraModal()"><div class="icon-wrapper"><i class="bi bi-camera"></i></div><h5>Kamera</h5><p>Kameras und Fotografie</p></div></div>
+        <div class="col-md-3"><div class="category-card-new" style="cursor:pointer;" onclick="openHandyModal()"><div class="icon-wrapper"><i class="bi bi-phone"></i></div><h5>Handy</h5><p>Smartphones und Tablets</p></div></div>
       </div>
     </div>
   </section>
@@ -309,6 +309,145 @@
 </div>
 
 </div> <!-- end mainContent -->
+
+<!-- ✅ HAUSHALT MODAL -->
+<div class="modal fade" id="haushaltModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content haushalt-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-wrapper mb-0"><i class="bi bi-house"></i></div>
+          <div>
+            <h4 class="fw-bold mb-0">Haushalt</h4>
+            <p class="text-secondary mb-0" style="font-size:14px;">Typische Reparaturen in dieser Kategorie</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-3">
+        <div class="haushalt-sub-grid">
+          <a href="/kategorie-detail.html?item=waschmaschine" class="haushalt-sub-item"><i class="bi bi-droplet-half"></i><span>Waschmaschine / Trockner</span></a>
+          <a href="/kategorie-detail.html?item=spuelmaschine" class="haushalt-sub-item"><i class="bi bi-cup-straw"></i><span>Spülmaschine</span></a>
+          <a href="/kategorie-detail.html?item=herd" class="haushalt-sub-item"><i class="bi bi-fire"></i><span>Herd / Backofen</span></a>
+          <a href="/kategorie-detail.html?item=heizung" class="haushalt-sub-item"><i class="bi bi-thermometer-sun"></i><span>Heizung</span></a>
+          <a href="/kategorie-detail.html?item=wasserhahn" class="haushalt-sub-item"><i class="bi bi-droplet"></i><span>Wasserhahn / Rohre</span></a>
+          <a href="/kategorie-detail.html?item=moebel" class="haushalt-sub-item"><i class="bi bi-house-door"></i><span>Möbel</span></a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openHaushaltModal() {
+  const modal = new bootstrap.Modal(document.getElementById("haushaltModal"));
+  modal.show();
+}
+</script>
+
+<!-- ✅ GERÄTE MODAL -->
+<div class="modal fade" id="geraeteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content haushalt-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-wrapper mb-0"><i class="bi bi-wrench"></i></div>
+          <div>
+            <h4 class="fw-bold mb-0">Geräte</h4>
+            <p class="text-secondary mb-0" style="font-size:14px;">Typische Reparaturen in dieser Kategorie</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-3">
+        <div class="haushalt-sub-grid">
+          <a href="/kategorie-detail.html?item=laptop" class="haushalt-sub-item"><i class="bi bi-laptop"></i><span>Laptop / PC</span></a>
+          <a href="/kategorie-detail.html?item=fernseher" class="haushalt-sub-item"><i class="bi bi-tv"></i><span>Fernseher</span></a>
+          <a href="/kategorie-detail.html?item=lautsprecher" class="haushalt-sub-item"><i class="bi bi-speaker"></i><span>Lautsprecher / Audio</span></a>
+          <a href="/kategorie-detail.html?item=drucker" class="haushalt-sub-item"><i class="bi bi-printer"></i><span>Drucker / Scanner</span></a>
+          <a href="/kategorie-detail.html?item=konsole" class="haushalt-sub-item"><i class="bi bi-controller"></i><span>Spielkonsole</span></a>
+          <a href="/kategorie-detail.html?item=elektronik" class="haushalt-sub-item"><i class="bi bi-tools"></i><span>Sonstige Elektronik</span></a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ KAMERA MODAL -->
+<div class="modal fade" id="kameraModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content haushalt-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-wrapper mb-0"><i class="bi bi-camera"></i></div>
+          <div>
+            <h4 class="fw-bold mb-0">Kamera</h4>
+            <p class="text-secondary mb-0" style="font-size:14px;">Typische Reparaturen in dieser Kategorie</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-3">
+        <div class="haushalt-sub-grid">
+          <a href="/kategorie-detail.html?item=objektiv" class="haushalt-sub-item"><i class="bi bi-camera2"></i><span>Objektiv-Defekt</span></a>
+          <a href="/kategorie-detail.html?item=kamera-akku" class="haushalt-sub-item"><i class="bi bi-battery-half"></i><span>Akku / Stromversorgung</span></a>
+          <a href="/kategorie-detail.html?item=kamera-display" class="haushalt-sub-item"><i class="bi bi-aspect-ratio"></i><span>Display / Sucher</span></a>
+          <a href="/kategorie-detail.html?item=speicherkarte" class="haushalt-sub-item"><i class="bi bi-sd-card"></i><span>Speicherkarten-Fehler</span></a>
+          <a href="/kategorie-detail.html?item=actioncam" class="haushalt-sub-item"><i class="bi bi-camera-video"></i><span>Action-Cam / Drohne</span></a>
+          <a href="/kategorie-detail.html?item=kamera-sonstige" class="haushalt-sub-item"><i class="bi bi-gear"></i><span>Sonstige Kamera-Defekte</span></a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ HANDY MODAL -->
+<div class="modal fade" id="handyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content haushalt-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-wrapper mb-0"><i class="bi bi-phone"></i></div>
+          <div>
+            <h4 class="fw-bold mb-0">Handy</h4>
+            <p class="text-secondary mb-0" style="font-size:14px;">Typische Reparaturen in dieser Kategorie</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-3">
+        <div class="haushalt-sub-grid">
+          <a href="/kategorie-detail.html?item=handy-display" class="haushalt-sub-item"><i class="bi bi-phone-flip"></i><span>Display gebrochen</span></a>
+          <a href="/kategorie-detail.html?item=handy-akku" class="haushalt-sub-item"><i class="bi bi-battery-charging"></i><span>Akku-Tausch</span></a>
+          <a href="/kategorie-detail.html?item=wasserschaden" class="haushalt-sub-item"><i class="bi bi-water"></i><span>Wasserschaden</span></a>
+          <a href="/kategorie-detail.html?item=ladebuchse" class="haushalt-sub-item"><i class="bi bi-usb-plug"></i><span>Ladebuchse defekt</span></a>
+          <a href="/kategorie-detail.html?item=handy-lautsprecher" class="haushalt-sub-item"><i class="bi bi-mic"></i><span>Lautsprecher / Mikrofon</span></a>
+          <a href="/kategorie-detail.html?item=tablet" class="haushalt-sub-item"><i class="bi bi-tablet"></i><span>Tablet-Reparatur</span></a>
+        </div>
+      </div>
+      <div class="modal-footer border-0 pt-0"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openGeraeteModal() {
+  const modal = new bootstrap.Modal(document.getElementById("geraeteModal"));
+  modal.show();
+}
+function openKameraModal() {
+  const modal = new bootstrap.Modal(document.getElementById("kameraModal"));
+  modal.show();
+}
+function openHandyModal() {
+  const modal = new bootstrap.Modal(document.getElementById("handyModal"));
+  modal.show();
+}
+</script>
 
 <script>
 function logout() {
@@ -593,5 +732,6 @@ document.addEventListener("submit", async (e) => {
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
